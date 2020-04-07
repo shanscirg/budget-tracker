@@ -99,6 +99,8 @@ function sendTransaction(isAdding) {
     date: new Date().toISOString()
   };
 
+  console.log('transaction', transaction);
+
   // if subtracting funds, convert amount to negative number
   if (!isAdding) {
     transaction.value *= -1;
@@ -136,6 +138,7 @@ function sendTransaction(isAdding) {
   })
   .catch(err => {
     // fetch failed, so save in indexed db
+    console.log("Fetch failed, so save transaction to indexed db");
     saveRecord(transaction);
 
     // clear form
@@ -145,9 +148,11 @@ function sendTransaction(isAdding) {
 }
 
 document.querySelector("#add-btn").onclick = function() {
+  console.log('add button');
   sendTransaction(true);
 };
 
 document.querySelector("#sub-btn").onclick = function() {
+  console.log('sub button');
   sendTransaction(false);
 };
